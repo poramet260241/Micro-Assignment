@@ -17,7 +17,7 @@ int main(void){
 
 ISR(PCINT2_vect){
 	static unsigned char ucInput;
-	_delay_ms(10);
+	_delay_ms(50);
 	ucInput = PIND;
 	ucInput &= 0xE0;
 	ucInput = ucInput >> 5;

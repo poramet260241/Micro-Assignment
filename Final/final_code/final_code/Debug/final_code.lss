@@ -3,31 +3,31 @@ final_code.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000018e  2**0
+  0 .data         00000000  00800100  00800100  00000198  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000011a  00000000  00000000  00000074  2**1
+  1 .text         00000124  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  00800100  00800100  0000018e  2**0
+  2 .bss          00000001  00800100  00800100  00000198  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000018e  2**0
+  3 .comment      00000030  00000000  00000000  00000198  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001c0  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001c8  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000028  00000000  00000000  00000200  2**0
+  5 .debug_aranges 00000028  00000000  00000000  00000208  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000734  00000000  00000000  00000228  2**0
+  6 .debug_info   00000734  00000000  00000000  00000230  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000689  00000000  00000000  0000095c  2**0
+  7 .debug_abbrev 00000689  00000000  00000000  00000964  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000002ba  00000000  00000000  00000fe5  2**0
+  8 .debug_line   000002ba  00000000  00000000  00000fed  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000048  00000000  00000000  000012a0  2**2
+  9 .debug_frame  00000050  00000000  00000000  000012a8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003b9  00000000  00000000  000012e8  2**0
+ 10 .debug_str    0000039b  00000000  00000000  000012f8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000091  00000000  00000000  000016a1  2**0
+ 11 .debug_loc    0000009e  00000000  00000000  00001693  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000018  00000000  00000000  00001732  2**0
+ 12 .debug_ranges 00000018  00000000  00000000  00001731  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -82,7 +82,7 @@ Disassembly of section .text:
   80:	b2 07       	cpc	r27, r18
   82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
   84:	0e 94 48 00 	call	0x90	; 0x90 <main>
-  88:	0c 94 8b 00 	jmp	0x116	; 0x116 <_exit>
+  88:	0c 94 90 00 	jmp	0x120	; 0x120 <_exit>
 
 0000008c <__bad_interrupt>:
   8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -120,84 +120,89 @@ ISR(PCINT2_vect){
   ae:	0f b6       	in	r0, 0x3f	; 63
   b0:	0f 92       	push	r0
   b2:	11 24       	eor	r1, r1
-  b4:	8f 93       	push	r24
-  b6:	9f 93       	push	r25
+  b4:	2f 93       	push	r18
+  b6:	8f 93       	push	r24
+  b8:	9f 93       	push	r25
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  b8:	8f e3       	ldi	r24, 0x3F	; 63
-  ba:	9c e9       	ldi	r25, 0x9C	; 156
-  bc:	01 97       	sbiw	r24, 0x01	; 1
-  be:	f1 f7       	brne	.-4      	; 0xbc <__vector_5+0x12>
-  c0:	00 c0       	rjmp	.+0      	; 0xc2 <__vector_5+0x18>
-  c2:	00 00       	nop
+  ba:	2f ef       	ldi	r18, 0xFF	; 255
+  bc:	80 e7       	ldi	r24, 0x70	; 112
+  be:	92 e0       	ldi	r25, 0x02	; 2
+  c0:	21 50       	subi	r18, 0x01	; 1
+  c2:	80 40       	sbci	r24, 0x00	; 0
+  c4:	90 40       	sbci	r25, 0x00	; 0
+  c6:	e1 f7       	brne	.-8      	; 0xc0 <__vector_5+0x16>
+  c8:	00 c0       	rjmp	.+0      	; 0xca <__vector_5+0x20>
+  ca:	00 00       	nop
 	static unsigned char ucInput;
-	_delay_ms(10);
+	_delay_ms(50);
 	ucInput = PIND;
-  c4:	89 b1       	in	r24, 0x09	; 9
+  cc:	89 b1       	in	r24, 0x09	; 9
 	ucInput &= 0xE0;
 	ucInput = ucInput >> 5;
 	switch(ucInput){
-  c6:	82 95       	swap	r24
-  c8:	86 95       	lsr	r24
-  ca:	87 70       	andi	r24, 0x07	; 7
-  cc:	82 30       	cpi	r24, 0x02	; 2
-  ce:	79 f0       	breq	.+30     	; 0xee <__vector_5+0x44>
-  d0:	84 30       	cpi	r24, 0x04	; 4
-  d2:	81 f0       	breq	.+32     	; 0xf4 <__vector_5+0x4a>
-  d4:	81 30       	cpi	r24, 0x01	; 1
-  d6:	99 f4       	brne	.+38     	; 0xfe <__vector_5+0x54>
+  ce:	82 95       	swap	r24
+  d0:	86 95       	lsr	r24
+  d2:	87 70       	andi	r24, 0x07	; 7
+  d4:	82 30       	cpi	r24, 0x02	; 2
+  d6:	79 f0       	breq	.+30     	; 0xf6 <__vector_5+0x4c>
+  d8:	84 30       	cpi	r24, 0x04	; 4
+  da:	81 f0       	breq	.+32     	; 0xfc <__vector_5+0x52>
+  dc:	81 30       	cpi	r24, 0x01	; 1
+  de:	99 f4       	brne	.+38     	; 0x106 <__vector_5+0x5c>
 		case 1:		counter++;
-  d8:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
-  dc:	8f 5f       	subi	r24, 0xFF	; 255
+  e0:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+  e4:	8f 5f       	subi	r24, 0xFF	; 255
 					if(counter>15)
-  de:	80 31       	cpi	r24, 0x10	; 16
-  e0:	18 f4       	brcc	.+6      	; 0xe8 <__vector_5+0x3e>
-	_delay_ms(10);
+  e6:	80 31       	cpi	r24, 0x10	; 16
+  e8:	18 f4       	brcc	.+6      	; 0xf0 <__vector_5+0x46>
+	_delay_ms(50);
 	ucInput = PIND;
 	ucInput &= 0xE0;
 	ucInput = ucInput >> 5;
 	switch(ucInput){
 		case 1:		counter++;
-  e2:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
-  e6:	0b c0       	rjmp	.+22     	; 0xfe <__vector_5+0x54>
+  ea:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+  ee:	0b c0       	rjmp	.+22     	; 0x106 <__vector_5+0x5c>
 					if(counter>15)
 						counter = 0;
-  e8:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
-  ec:	08 c0       	rjmp	.+16     	; 0xfe <__vector_5+0x54>
+  f0:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
+  f4:	08 c0       	rjmp	.+16     	; 0x106 <__vector_5+0x5c>
 					break;
 		case 2:		counter = 0;
-  ee:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
+  f6:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
 					break;
-  f2:	05 c0       	rjmp	.+10     	; 0xfe <__vector_5+0x54>
+  fa:	05 c0       	rjmp	.+10     	; 0x106 <__vector_5+0x5c>
 		case 4:		counter--;
-  f4:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
-  f8:	81 50       	subi	r24, 0x01	; 1
-  fa:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+  fc:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+ 100:	81 50       	subi	r24, 0x01	; 1
+ 102:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
 					if(counter < 0)
 					counter = 15;
 					break;
 	}
 					
 	PORTB = counter;
-  fe:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
- 102:	85 b9       	out	0x05, r24	; 5
+ 106:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+ 10a:	85 b9       	out	0x05, r24	; 5
 	PCIFR = 1 << PCIF2;
- 104:	84 e0       	ldi	r24, 0x04	; 4
- 106:	8b bb       	out	0x1b, r24	; 27
- 108:	9f 91       	pop	r25
- 10a:	8f 91       	pop	r24
- 10c:	0f 90       	pop	r0
- 10e:	0f be       	out	0x3f, r0	; 63
- 110:	0f 90       	pop	r0
- 112:	1f 90       	pop	r1
- 114:	18 95       	reti
+ 10c:	84 e0       	ldi	r24, 0x04	; 4
+ 10e:	8b bb       	out	0x1b, r24	; 27
+ 110:	9f 91       	pop	r25
+ 112:	8f 91       	pop	r24
+ 114:	2f 91       	pop	r18
+ 116:	0f 90       	pop	r0
+ 118:	0f be       	out	0x3f, r0	; 63
+ 11a:	0f 90       	pop	r0
+ 11c:	1f 90       	pop	r1
+ 11e:	18 95       	reti
 
-00000116 <_exit>:
- 116:	f8 94       	cli
+00000120 <_exit>:
+ 120:	f8 94       	cli
 
-00000118 <__stop_program>:
- 118:	ff cf       	rjmp	.-2      	; 0x118 <__stop_program>
+00000122 <__stop_program>:
+ 122:	ff cf       	rjmp	.-2      	; 0x122 <__stop_program>
