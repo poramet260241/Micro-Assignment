@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\Debug\midterm_code.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>midterm_code.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>midterm_code.map</FILE>
+  <FILE>midterm_code.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <SETUP><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>15</LINE></SETUP>
+  <MAIN_LOOP><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>22</LINE></MAIN_LOOP>
+  <RESET><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>47</LINE></RESET>
+  <UP_VAL><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>51</LINE></UP_VAL>
+  <DOWN_VAL><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>55</LINE></DOWN_VAL>
+  <SHOW_OUT><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>31</LINE></SHOW_OUT>
+  <DELAY_F><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>35</LINE></DELAY_F>
+  <L1><FILE>D:\PSU\Lacture2-2562\MicroPro\Micropro Assignment\Midterm\midterm_code\midterm_code\main.asm</FILE><LINE>39</LINE></L1>
+ </LABELS>
+</ASSEMBLER_INFO>
